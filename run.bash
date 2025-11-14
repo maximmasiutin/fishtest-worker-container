@@ -2,6 +2,7 @@
 # Bash script to run Fishtest worker in Docker (for Windows Git Bash/WSL/Linux)
 # All parameters are optional - just set the values you need (leave empty strings for defaults)
 
+docker pull maximmasiutin/fishtest-worker:latest
 docker run -d --name fishtest-worker --rm -v /home/fishtest \
   -e USERNAME="" \
   -e PASSWORD="" \

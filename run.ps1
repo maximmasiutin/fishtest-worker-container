@@ -1,6 +1,7 @@
 # PowerShell script to run Fishtest worker in Docker
 # All parameters are optional - just set the values you need (leave empty strings for defaults)
 
+docker pull maximmasiutin/fishtest-worker:latest
 docker run -d --name fishtest-worker --rm -v /home/fishtest `
   -e USERNAME="" `
   -e PASSWORD="" `

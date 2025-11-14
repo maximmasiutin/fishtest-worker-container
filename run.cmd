@@ -3,6 +3,7 @@ REM Windows CMD script to run Fishtest worker in Docker
 REM NOTE: For easier parameter customization, use run.ps1 (PowerShell) instead
 REM To customize parameters, edit the lines below directly (no inline comments allowed in CMD)
 
+docker pull maximmasiutin/fishtest-worker:latest
 docker run -d --name fishtest-worker --rm -v /home/fishtest -e USERNAME="your_user" -e PASSWORD="your_pass" fishtest-worker:latest
 
 REM To add parameters, replace the line above with something like:
