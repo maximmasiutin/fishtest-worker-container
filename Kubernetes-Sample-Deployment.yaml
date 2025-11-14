@@ -51,6 +51,6 @@ spec:
               name: fishtest-credentials
               key: password
         - name: CONCURRENCY
-          value: "MAX"
+          value: "MAX-2"
         - name: MAX_MEMORY
           value: "MAX"
