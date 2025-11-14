@@ -1,0 +1,56 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fishtest-worker
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: fishtest-credentials
+  namespace: fishtest-worker
+type: Opaque
+stringData:
+  username: "my-user-namen"
+  password: "my-secret-passwrd"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fishtest-worker
+  namespace: fishtest-worker
+  labels:
+    app: fishtest-worker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fishtest-worker
+  template:
+    metadata:
+      labels:
+        app: fishtest-worker
+    spec:
+      # Allow scheduling on control plane nodes
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: fishtest-worker
+        image: docker.io/maximmasiutin/fishtest-worker:latest
+        env:
+        - name: USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: fishtest-credentials
+              key: username
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: fishtest-credentials
+              key: password
+        - name: CONCURRENCY
+          value: "MAX"
+        - name: MAX_MEMORY
+          value: "MAX"
