@@ -15,7 +15,7 @@ docker run -d --name fishtest-worker --rm -v /home/fishtest \
   -e MIN_THREADS="" \
   -e FLEET="" \
   -e GLOBAL_CACHE="" \
-  fishtest-worker:latest
+  maximmasiutin/fishtest-worker:latest
 
 echo "Fishtest worker container started"
 echo "Container name: fishtest-worker"
