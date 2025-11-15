@@ -54,3 +54,14 @@ spec:
           value: "MAX-2"
         - name: MAX_MEMORY
           value: "MAX"
+        resources:
+          requests:
+            ephemeral-storage: "2Gi"
+          limits:
+            ephemeral-storage: "5Gi"
+        volumeMounts:
+        - name: fishtest-data
+          mountPath: /home/fishtest
+      volumes:
+      - name: fishtest-data
+        emptyDir: {}
