@@ -22,6 +22,7 @@ metadata:
   labels:
     app: fishtest-worker
 spec:
+  # Run 3 wokers
   replicas: 3
   selector:
     matchLabels:
@@ -36,6 +37,14 @@ spec:
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
         effect: NoSchedule
+      # Ensure no more than one pod per node
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app: fishtest-worker
+            topologyKey: kubernetes.io/hostname
       containers:
       - name: fishtest-worker
         image: docker.io/maximmasiutin/fishtest-worker:latest
