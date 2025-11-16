@@ -22,4 +22,4 @@ docker run -d --name fishtest-worker --rm -v /home/fishtest \
 3. Run on Windows CMD: `run.cmd` (basic version, use PowerShell for easier customization)
 4. Run on Bash/WSL/Git Bash: `./run.bash`
 5. Edit run.ps1 or run.bash to set worker parameters (USERNAME, PASSWORD, CONCURRENCY, etc.) - just fill in the empty strings
-
+6. You can rename .ps1 or .cmd or .bash files to -my (e.g. run-my.cmd) because they are in .gitignore
