@@ -21,5 +21,36 @@ docker run -d --name fishtest-worker --rm -v /home/fishtest \
 2. Run on Windows PowerShell: `.\run.ps1`
 3. Run on Windows CMD: `run.cmd` (basic version, use PowerShell for easier customization)
 4. Run on Bash/WSL/Git Bash: `./run.bash`
-5. Edit run.ps1 or run.bash to set worker parameters (USERNAME, PASSWORD, CONCURRENCY, etc.) - just fill in the empty strings
-6. You can rename .ps1 or .cmd or .bash files to -my (e.g. run-my.cmd) because they are in .gitignore
+
+## Credential Safety
+
+**Important:** Before editing any file with your credentials, copy it to a `-my` version first.
+Files ending with `-my.*` are in `.gitignore` and will not be committed to the repository.
+
+For Docker run scripts:
+```bash
+cp run.bash run-my.bash
+# Edit run-my.bash with your credentials
+./run-my.bash
+```
+
+For Kubernetes deployment:
+```bash
+cp kubernetes-sample-deployment.yaml kubernetes-sample-deployment-my.yaml
+# Edit kubernetes-sample-deployment-my.yaml with your credentials
+kubectl apply -f kubernetes-sample-deployment-my.yaml
+```
+
+## Kubernetes Deployment
+
+See `kubernetes-sample-deployment.yaml` for a sample deployment configuration with:
+- 3 replicas (one per node using pod anti-affinity)
+- Secret for credentials
+- emptyDir volume for fishtest data
+- Ephemeral storage limits
+
+To deploy:
+1. Copy `kubernetes-sample-deployment.yaml` to `kubernetes-sample-deployment-my.yaml`
+2. Edit `kubernetes-sample-deployment-my.yaml` with your actual username and password
+3. Apply: `kubectl apply -f kubernetes-sample-deployment-my.yaml`
+4. Verify: `kubectl get pods -n fishtest-worker -o wide`

@@ -1,3 +1,13 @@
+# Fishtest Worker Kubernetes Deployment
+#
+# IMPORTANT: Before editing credentials, copy this file to kubernetes-sample-deployment-my.yaml
+# Files ending with -my.* are in .gitignore and will not be committed to the repository.
+#
+# Usage:
+#   cp kubernetes-sample-deployment.yaml kubernetes-sample-deployment-my.yaml
+#   # Edit kubernetes-sample-deployment-my.yaml with your credentials
+#   kubectl apply -f kubernetes-sample-deployment-my.yaml
+#
 ---
 apiVersion: v1
 kind: Namespace
@@ -11,8 +21,9 @@ metadata:
   namespace: fishtest-worker
 type: Opaque
 stringData:
-  username: "my-user-namen"
-  password: "my-secret-passwrd"
+  # Replace with your actual Fishtest credentials
+  username: "your-username-here"
+  password: "your-password-here"
 ---
 apiVersion: apps/v1
 kind: Deployment

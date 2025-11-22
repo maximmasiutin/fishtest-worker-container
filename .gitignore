@@ -1,4 +1,5 @@
-run-my.cmd
-run-my.ps1
-run-my.bash
-Kubernetes-Sample-Deployment-My.yaml
+# Files with credentials (copy template to -my version and edit)
+*-my.yaml
+*-my.cmd
+*-my.ps1
+*-my.bash
