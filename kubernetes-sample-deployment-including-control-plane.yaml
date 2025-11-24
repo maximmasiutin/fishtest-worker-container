@@ -1,15 +1,15 @@
-# Fishtest Worker Kubernetes Deployment (Worker Nodes Only)
+# Fishtest Worker Kubernetes Deployment (Including Control Plane)
 #
-# This version runs only on worker nodes with 2 replicas.
-# For control plane deployment with 3 replicas, use kubernetes-sample-deployment-including-control-plane.yaml
+# This version allows running on control plane nodes with 3 replicas.
+# For worker-only deployment with 2 replicas, use kubernetes-sample-deployment.yaml
 #
-# IMPORTANT: Before editing credentials, copy this file to kubernetes-sample-deployment-my.yaml
+# IMPORTANT: Before editing credentials, copy this file to kubernetes-sample-deployment-including-control-plane-my.yaml
 # Files ending with -my.* are in .gitignore and will not be committed to the repository.
 #
 # Usage:
-#   cp kubernetes-sample-deployment.yaml kubernetes-sample-deployment-my.yaml
-#   # Edit kubernetes-sample-deployment-my.yaml with your credentials
-#   kubectl apply -f kubernetes-sample-deployment-my.yaml
+#   cp kubernetes-sample-deployment-including-control-plane.yaml kubernetes-sample-deployment-including-control-plane-my.yaml
+#   # Edit kubernetes-sample-deployment-including-control-plane-my.yaml with your credentials
+#   kubectl apply -f kubernetes-sample-deployment-including-control-plane-my.yaml
 #
 ---
 apiVersion: v1
@@ -36,8 +36,8 @@ metadata:
   labels:
     app: fishtest-worker
 spec:
-  # Run 2 workers (worker nodes only)
-  replicas: 2
+  # Run 3 wokers
+  replicas: 3
   selector:
     matchLabels:
       app: fishtest-worker
@@ -46,6 +46,11 @@ spec:
       labels:
         app: fishtest-worker
     spec:
+      # Allow scheduling on control plane nodes
+      tolerations:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+        effect: NoSchedule
       # Ensure no more than one pod per node
       affinity:
         podAntiAffinity:
