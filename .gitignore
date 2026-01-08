@@ -3,3 +3,6 @@
 *-my.cmd
 *-my.ps1
 *-my.bash
+
+# Scanner working directories
+.scannerwork/

@@ -1,28 +1,17 @@
 # Dockerfile
-FROM alpine:latest
+FROM python:3.12-alpine
 
-# Install system dependencies
+# Install system dependencies (build-base includes gcc, g++, make, musl-dev, libc-dev)
 RUN apk add --no-cache \
-    python3 \
-    py3-pip \
-    bash \
-    g++ \
-    gcc \
-    make \
+    build-base \
     git \
-    musl-dev \
     linux-headers \
     openssh-client \
-    ca-certificates \
-    libc-dev \
     procps \
     binutils
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir --break-system-packages \
-    requests>=2.25.1 \
-    openlock>=1.1.5 \
-    expression-parser>=0.0.6
+RUN pip install --no-cache-dir requests openlock expression-parser
 
 # Configure git
 RUN git config --global --add safe.directory '*'
